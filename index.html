@@ -1,64 +1,84 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Copy Link</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #1877f2, #4e73df);
-            font-family: Arial, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copy Link</title>
 
-        .box {
-            background: white;
-            padding: 25px 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            text-align: center;
-        }
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#1877f2,#42a5f5);
+    font-family:Arial, sans-serif;
+}
 
-        .copy-text {
-            color: #1877f2;
-            font-size: 18px;
-            cursor: pointer;
-            word-break: break-all;
-            transition: 0.3s;
-        }
+.container{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+    text-align:center;
+    max-width:90%;
+}
 
-        .copy-text:hover {
-            color: #0d5dc4;
-            text-decoration: underline;
-        }
+.note{
+    font-size:14px;
+    color:#ff3366;
+    margin-bottom:15px;
+    font-weight:bold;
+}
 
-        .copied {
-            margin-top: 15px;
-            color: green;
-            font-weight: bold;
-            display: none;
-        }
-    </style>
+.copy-btn{
+    font-size:18px;
+    color:#1877f2;
+    cursor:pointer;
+    word-break:break-all;
+    transition:0.3s;
+}
+
+.copy-btn:hover{
+    color:#0d5dc4;
+    transform:scale(1.05);
+}
+
+.message{
+    margin-top:15px;
+    font-weight:bold;
+    color:green;
+    display:none;
+}
+</style>
 </head>
+
 <body>
 
-<div class="box">
-    <div class="copy-text" onclick="copyLink()">
+<div class="container">
+    <div class="note">
+        do chính sách của tik tok, mọi người copy rồi vào google hoặc safari để coi nhé 💋💋
+    </div>
+
+    <div class="copy-btn" id="copyText">
         https://www.facebook.com/profile.php?id=100089883616175
     </div>
-    <div id="copiedMsg" class="copied">Đã copy thành công ✅</div>
+
+    <div class="message" id="msg">Đã copy thành công ✅</div>
 </div>
 
 <script>
-    function copyLink() {
-        const text = "https://www.facebook.com/profile.php?id=100089883616175";
+const text = "https://www.facebook.com/profile.php?id=100089883616175";
 
-        navigator.clipboard.writeText(text).then(() => {
-            document.getElementById("copiedMsg").style.display = "block";
-        });
+document.getElementById("copyText").addEventListener("click", async () => {
+    try {
+        await navigator.clipboard.writeText(text);
+        document.getElementById("msg").style.display = "block";
+    } catch(err) {
+        alert("Trình duyệt không hỗ trợ copy tự động!");
     }
+});
 </script>
 
 </body>
