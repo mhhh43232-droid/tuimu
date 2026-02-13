@@ -70,6 +70,20 @@ body{
     box-shadow:0 0 30px rgba(0,150,255,0.8);
 }
 
+/* 🔥 Hiệu ứng rung */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+    100% { transform: translateX(0); }
+}
+
+.shake {
+    animation: shake 0.3s;
+}
+
 .icon{
     font-size:18px;
 }
@@ -82,7 +96,7 @@ body{
     display:none;
 }
 
-/* Footer đen sang */
+/* Footer */
 .footer{
     text-align:center;
     padding:15px 0;
@@ -101,6 +115,7 @@ body{
 
         <div class="note-box">
             Do chính sách của tik tok, mọi người ấn dòng dưới, hệ thống sẽ AUTO COPY link rồi vào google hoặc safari để coi nhé 💋💋
+
         </div>
 
         <div class="link-box" id="copyText">
@@ -114,13 +129,14 @@ body{
 </div>
 
 <div class="footer">
-    © <span id="year"></span> VangDev. All Rights Reserved.
+    © <span id="year"></span> NOVA Dev. All Rights Reserved.
 </div>
 
 <script>
 const text = "https://www.facebook.com/profile.php?id=100089883616175";
+const box = document.getElementById("copyText");
 
-document.getElementById("copyText").addEventListener("click", async () => {
+box.addEventListener("click", async () => {
     try {
         await navigator.clipboard.writeText(text);
 
@@ -129,6 +145,10 @@ document.getElementById("copyText").addEventListener("click", async () => {
 
         msg.style.display = "block";
         icon.textContent = "✅";
+
+        // 🔥 Thêm rung
+        box.classList.add("shake");
+        setTimeout(() => box.classList.remove("shake"), 300);
 
         setTimeout(() => {
             msg.style.display = "none";
