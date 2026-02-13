@@ -32,14 +32,9 @@ body{
     font-weight:bold;
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
     margin-bottom:20px;
-    transition:0.3s;
 }
 
-.note-box:hover{
-    transform:translateY(-3px);
-}
-
-/* Ô link copy */
+/* Ô link */
 .link-box{
     background:white;
     padding:22px;
@@ -52,13 +47,25 @@ body{
     font-size:16px;
     color:#1877f2;
     font-weight:bold;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    position:relative;
 }
 
 .link-box:hover{
     transform:scale(1.03);
-    background:#f5f9ff;
+    box-shadow:0 0 20px rgba(24,119,242,0.6);
 }
 
+/* Icon */
+.icon{
+    font-size:18px;
+    transition:0.3s;
+}
+
+/* Message */
 .message{
     margin-top:15px;
     text-align:center;
@@ -73,14 +80,13 @@ body{
 
 <div class="wrapper">
 
-    <!-- Ô NOTE -->
     <div class="note-box">
         do chính sách của tik tok, mọi người copy rồi vào google hoặc safari để coi nhé 💋💋
     </div>
 
-    <!-- Ô LINK -->
     <div class="link-box" id="copyText">
-        https://www.facebook.com/profile.php?id=100089883616175
+        <span id="icon" class="icon">📋</span>
+        <span>https://www.facebook.com/profile.php?id=100089883616175</span>
     </div>
 
     <div class="message" id="msg">Đã copy thành công ✅</div>
@@ -93,7 +99,18 @@ const text = "https://www.facebook.com/profile.php?id=100089883616175";
 document.getElementById("copyText").addEventListener("click", async () => {
     try {
         await navigator.clipboard.writeText(text);
-        document.getElementById("msg").style.display = "block";
+
+        const msg = document.getElementById("msg");
+        const icon = document.getElementById("icon");
+
+        msg.style.display = "block";
+        icon.textContent = "✅";
+
+        setTimeout(() => {
+            msg.style.display = "none";
+            icon.textContent = "📋";
+        }, 2000);
+
     } catch(err) {
         alert("Trình duyệt không hỗ trợ copy tự động!");
     }
