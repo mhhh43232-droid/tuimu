@@ -8,8 +8,9 @@
 <style>
 body{
     margin:0;
-    height:100vh;
+    min-height:100vh;
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
     background:linear-gradient(135deg,#1877f2,#42a5f5);
@@ -25,17 +26,17 @@ body{
 .note-box{
     background:linear-gradient(135deg,#ff4d6d,#ff758f);
     color:white;
-    padding:30px;              /* tăng padding */
+    padding:30px;
     border-radius:20px;
     text-align:center;
-    font-size:18px;            /* chữ to hơn */
+    font-size:18px;
     font-weight:bold;
     box-shadow:0 15px 35px rgba(0,0,0,0.25);
     margin-bottom:25px;
-    transform:scale(1.05);     /* phóng nhẹ */
+    transform:scale(1.05);
 }
 
-/* Ô LINK (nhỏ hơn) */
+/* Ô LINK */
 .link-box{
     background:white;
     padding:18px;
@@ -70,6 +71,14 @@ body{
     font-weight:bold;
     display:none;
 }
+
+/* Footer bản quyền */
+.footer{
+    margin-top:40px;
+    font-size:13px;
+    color:rgba(255,255,255,0.8);
+    text-align:center;
+}
 </style>
 </head>
 
@@ -88,6 +97,10 @@ body{
 
     <div class="message" id="msg">Đã copy thành công ✅</div>
 
+</div>
+
+<div class="footer">
+    © <span id="year"></span> VangDev. All Rights Reserved.
 </div>
 
 <script>
@@ -112,6 +125,9 @@ document.getElementById("copyText").addEventListener("click", async () => {
         alert("Trình duyệt không hỗ trợ copy tự động!");
     }
 });
+
+/* Tự động lấy năm hiện tại */
+document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
 </body>
