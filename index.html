@@ -6,15 +6,24 @@
 <title>Copy Link</title>
 
 <style>
-body{
+html, body{
     margin:0;
-    min-height:100vh;
+    height:100%;
+    font-family:Arial, sans-serif;
+}
+
+body{
     display:flex;
     flex-direction:column;
+    background:linear-gradient(135deg,#1877f2,#42a5f5);
+}
+
+/* Phần nội dung chính */
+.main{
+    flex:1; /* Quan trọng: đẩy footer xuống đáy */
+    display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#1877f2,#42a5f5);
-    font-family:Arial, sans-serif;
 }
 
 .wrapper{
@@ -22,7 +31,7 @@ body{
     max-width:420px;
 }
 
-/* Ô NOTE (TO HƠN) */
+/* Ô NOTE */
 .note-box{
     background:linear-gradient(135deg,#ff4d6d,#ff758f);
     color:white;
@@ -72,35 +81,38 @@ body{
     display:none;
 }
 
-/* Footer bản quyền */
+/* Footer sát đáy */
 .footer{
-    margin-top:40px;
-    font-size:13px;
-    color:rgba(255,255,255,0.8);
     text-align:center;
+    padding:12px 0;
+    font-size:13px;
+    color:rgba(255,255,255,0.85);
+    background:rgba(0,0,0,0.15);
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrapper">
+<div class="main">
+    <div class="wrapper">
 
-    <div class="note-box">
-        do chính sách của tik tok, mọi người copy rồi vào google hoặc safari để coi nhé 💋💋
+        <div class="note-box">
+            do chính sách của tik tok, mọi người copy rồi vào google hoặc safari để coi nhé 💋💋
+        </div>
+
+        <div class="link-box" id="copyText">
+            <span id="icon" class="icon">📋</span>
+            <span>https://www.facebook.com/profile.php?id=100089883616175</span>
+        </div>
+
+        <div class="message" id="msg">Đã copy thành công ✅</div>
+
     </div>
-
-    <div class="link-box" id="copyText">
-        <span id="icon" class="icon">📋</span>
-        <span>https://www.facebook.com/profile.php?id=100089883616175</span>
-    </div>
-
-    <div class="message" id="msg">Đã copy thành công ✅</div>
-
 </div>
 
 <div class="footer">
-    © <span id="year"></span> VangDev. All Rights Reserved.
+    © <span id="year"></span> NovaDev. All Rights Reserved.
 </div>
 
 <script>
@@ -126,7 +138,6 @@ document.getElementById("copyText").addEventListener("click", async () => {
     }
 });
 
-/* Tự động lấy năm hiện tại */
 document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
