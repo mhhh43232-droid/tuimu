@@ -3,94 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Copy Link</title>
+<title>VIP Access</title>
 
 <style>
 html, body{
     margin:0;
     height:100%;
     font-family:Arial, sans-serif;
+    background:#000;
+    overflow:hidden;
 }
 
 body{
     display:flex;
     flex-direction:column;
-    background:linear-gradient(135deg,#0f0f0f,#1a1a1a,#000000);
-    color:white;
 }
 
-/* Nội dung chính */
+/* Nền glow động */
+body::before{
+    content:"";
+    position:fixed;
+    width:400px;
+    height:400px;
+    background:radial-gradient(circle,#00aaff55,transparent 70%);
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    animation:pulse 3s infinite alternate;
+    z-index:0;
+}
+
+@keyframes pulse{
+    from{transform:translate(-50%,-50%) scale(1);}
+    to{transform:translate(-50%,-50%) scale(1.2);}
+}
+
 .main{
     flex:1;
     display:flex;
     justify-content:center;
     align-items:center;
+    position:relative;
+    z-index:1;
 }
 
 .wrapper{
     width:95%;
     max-width:420px;
+    text-align:center;
+}
+
+/* Badge VIP */
+.vip-badge{
+    display:inline-block;
+    padding:6px 14px;
+    margin-bottom:20px;
+    font-size:13px;
+    letter-spacing:2px;
+    color:#000;
+    background:linear-gradient(90deg,#ffd700,#ffcc00);
+    border-radius:20px;
+    font-weight:bold;
+    box-shadow:0 0 15px #ffd700;
 }
 
 /* Ô NOTE */
 .note-box{
-    background:linear-gradient(135deg,#8b0000,#b22222);
-    padding:30px;
-    border-radius:20px;
-    text-align:center;
-    font-size:18px;
+    background:#111;
+    padding:25px;
+    border-radius:18px;
+    font-size:17px;
     font-weight:bold;
-    box-shadow:0 0 25px rgba(255,0,0,0.4);
+    color:#ff4d6d;
+    box-shadow:0 0 25px rgba(255,0,80,0.4);
     margin-bottom:25px;
-    transform:scale(1.05);
+    border:1px solid rgba(255,0,80,0.3);
 }
 
 /* Ô LINK */
 .link-box{
-    background:#111;
-    padding:18px;
-    border-radius:16px;
-    text-align:center;
-    box-shadow:0 0 20px rgba(0,150,255,0.4);
-    cursor:pointer;
-    transition:0.3s;
-    word-break:break-all;
+    background:#0a0a0a;
+    padding:20px;
+    border-radius:18px;
     font-size:15px;
-    color:#00aaff;
+    color:#00e0ff;
     font-weight:bold;
+    cursor:pointer;
     display:flex;
     justify-content:center;
     align-items:center;
     gap:8px;
-    border:1px solid rgba(0,150,255,0.4);
+    border:1px solid #00e0ff55;
+    box-shadow:0 0 20px #00e0ff55;
+    transition:0.3s;
 }
 
 .link-box:hover{
+    box-shadow:0 0 35px #00e0ffaa;
     transform:scale(1.05);
-    box-shadow:0 0 30px rgba(0,150,255,0.8);
 }
 
-/* 🔥 Hiệu ứng rung */
+/* Rung */
 @keyframes shake {
     0% { transform: translateX(0); }
-    20% { transform: translateX(-4px); }
-    40% { transform: translateX(4px); }
-    60% { transform: translateX(-4px); }
-    80% { transform: translateX(4px); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
     100% { transform: translateX(0); }
 }
 
-.shake {
-    animation: shake 0.3s;
-}
-
-.icon{
-    font-size:18px;
+.shake{
+    animation:shake 0.4s;
 }
 
 .message{
     margin-top:15px;
-    text-align:center;
     color:#00ff88;
     font-weight:bold;
     display:none;
@@ -99,11 +127,10 @@ body{
 /* Footer */
 .footer{
     text-align:center;
-    padding:15px 0;
-    font-size:13px;
-    background:#000;
-    color:rgba(255,255,255,0.6);
-    border-top:1px solid rgba(255,255,255,0.1);
+    padding:12px 0;
+    font-size:12px;
+    color:#666;
+    border-top:1px solid #111;
 }
 </style>
 </head>
@@ -113,23 +140,25 @@ body{
 <div class="main">
     <div class="wrapper">
 
+        <div class="vip-badge">VIP ACCESS</div>
+
         <div class="note-box">
-            Do chính sách của tik tok, mọi người ấn dòng dưới, hệ thống sẽ AUTO COPY link rồi vào google hoặc safari để coi nhé 💋💋
+            mọi người ấn dòng dưới, hệ thống sẽ AUTO COPY link rồi vào google hoặc safari để coi nhé. 💋💋
 
         </div>
 
         <div class="link-box" id="copyText">
-            <span id="icon" class="icon">📋</span>
+            <span id="icon">📋</span>
             <span>https://www.facebook.com/profile.php?id=100089883616175</span>
         </div>
 
-        <div class="message" id="msg">Đã copy thành công ✅</div>
+        <div class="message" id="msg">ACCESS GRANTED ✅</div>
 
     </div>
 </div>
 
 <div class="footer">
-    © <span id="year"></span> NOVA Dev. All Rights Reserved.
+    © <span id="year"></span> NovaDev Premium. All Rights Reserved.
 </div>
 
 <script>
@@ -146,17 +175,16 @@ box.addEventListener("click", async () => {
         msg.style.display = "block";
         icon.textContent = "✅";
 
-        // 🔥 Thêm rung
         box.classList.add("shake");
-        setTimeout(() => box.classList.remove("shake"), 300);
+        setTimeout(()=>box.classList.remove("shake"),400);
 
-        setTimeout(() => {
-            msg.style.display = "none";
-            icon.textContent = "📋";
-        }, 2000);
+        setTimeout(()=>{
+            msg.style.display="none";
+            icon.textContent="📋";
+        },2000);
 
     } catch(err) {
-        alert("Trình duyệt không hỗ trợ copy tự động!");
+        alert("Copy không được trên trình duyệt này!");
     }
 });
 
