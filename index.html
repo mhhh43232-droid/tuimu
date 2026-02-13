@@ -16,39 +16,54 @@ body{
     font-family:Arial, sans-serif;
 }
 
-.container{
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+.wrapper{
+    width:95%;
+    max-width:420px;
+}
+
+/* Ô note */
+.note-box{
+    background:linear-gradient(135deg,#ff4d6d,#ff758f);
+    color:white;
+    padding:18px;
+    border-radius:16px;
     text-align:center;
-    max-width:90%;
-}
-
-.note{
     font-size:14px;
-    color:#ff3366;
-    margin-bottom:15px;
     font-weight:bold;
-}
-
-.copy-btn{
-    font-size:18px;
-    color:#1877f2;
-    cursor:pointer;
-    word-break:break-all;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    margin-bottom:20px;
     transition:0.3s;
 }
 
-.copy-btn:hover{
-    color:#0d5dc4;
-    transform:scale(1.05);
+.note-box:hover{
+    transform:translateY(-3px);
+}
+
+/* Ô link copy */
+.link-box{
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    text-align:center;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+    cursor:pointer;
+    transition:0.3s;
+    word-break:break-all;
+    font-size:16px;
+    color:#1877f2;
+    font-weight:bold;
+}
+
+.link-box:hover{
+    transform:scale(1.03);
+    background:#f5f9ff;
 }
 
 .message{
     margin-top:15px;
+    text-align:center;
+    color:#28a745;
     font-weight:bold;
-    color:green;
     display:none;
 }
 </style>
@@ -56,16 +71,20 @@ body{
 
 <body>
 
-<div class="container">
-    <div class="note">
+<div class="wrapper">
+
+    <!-- Ô NOTE -->
+    <div class="note-box">
         do chính sách của tik tok, mọi người copy rồi vào google hoặc safari để coi nhé 💋💋
     </div>
 
-    <div class="copy-btn" id="copyText">
+    <!-- Ô LINK -->
+    <div class="link-box" id="copyText">
         https://www.facebook.com/profile.php?id=100089883616175
     </div>
 
     <div class="message" id="msg">Đã copy thành công ✅</div>
+
 </div>
 
 <script>
