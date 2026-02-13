@@ -11,40 +11,80 @@ html, body{
     height:100%;
     font-family:Arial, sans-serif;
     background:#000;
-    overflow:hidden;
 }
 
-body{
+/* ===== OVERLAY 18+ ===== */
+.age-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.95);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.age-box{
+    background:#111;
+    padding:35px;
+    border-radius:20px;
+    text-align:center;
+    max-width:350px;
+    color:white;
+    box-shadow:0 0 40px rgba(0,150,255,0.3);
+}
+
+.age-box h2{
+    margin-bottom:15px;
+    color:#ff4d6d;
+}
+
+.age-box p{
+    font-size:14px;
+    margin-bottom:25px;
+    color:#ccc;
+}
+
+.age-buttons{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+}
+
+.btn{
+    padding:10px 18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn-yes{
+    background:#00e0ff;
+    color:#000;
+}
+
+.btn-no{
+    background:#444;
+    color:#fff;
+}
+
+.btn:hover{
+    opacity:0.8;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main{
     display:flex;
     flex-direction:column;
+    min-height:100vh;
 }
 
-/* Nền glow động */
-body::before{
-    content:"";
-    position:fixed;
-    width:400px;
-    height:400px;
-    background:radial-gradient(circle,#00aaff55,transparent 70%);
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    animation:pulse 3s infinite alternate;
-    z-index:0;
-}
-
-@keyframes pulse{
-    from{transform:translate(-50%,-50%) scale(1);}
-    to{transform:translate(-50%,-50%) scale(1.2);}
-}
-
-.main{
+.content{
     flex:1;
     display:flex;
     justify-content:center;
     align-items:center;
-    position:relative;
-    z-index:1;
 }
 
 .wrapper{
@@ -53,21 +93,6 @@ body::before{
     text-align:center;
 }
 
-/* Badge VIP */
-.vip-badge{
-    display:inline-block;
-    padding:6px 14px;
-    margin-bottom:20px;
-    font-size:13px;
-    letter-spacing:2px;
-    color:#000;
-    background:linear-gradient(90deg,#ffd700,#ffcc00);
-    border-radius:20px;
-    font-weight:bold;
-    box-shadow:0 0 15px #ffd700;
-}
-
-/* Ô NOTE */
 .note-box{
     background:#111;
     padding:25px;
@@ -77,10 +102,8 @@ body::before{
     color:#ff4d6d;
     box-shadow:0 0 25px rgba(255,0,80,0.4);
     margin-bottom:25px;
-    border:1px solid rgba(255,0,80,0.3);
 }
 
-/* Ô LINK */
 .link-box{
     background:#0a0a0a;
     padding:20px;
@@ -89,32 +112,14 @@ body::before{
     color:#00e0ff;
     font-weight:bold;
     cursor:pointer;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:8px;
     border:1px solid #00e0ff55;
     box-shadow:0 0 20px #00e0ff55;
     transition:0.3s;
 }
 
 .link-box:hover{
-    box-shadow:0 0 35px #00e0ffaa;
     transform:scale(1.05);
-}
-
-/* Rung */
-@keyframes shake {
-    0% { transform: translateX(0); }
-    20% { transform: translateX(-5px); }
-    40% { transform: translateX(5px); }
-    60% { transform: translateX(-5px); }
-    80% { transform: translateX(5px); }
-    100% { transform: translateX(0); }
-}
-
-.shake{
-    animation:shake 0.4s;
+    box-shadow:0 0 35px #00e0ffaa;
 }
 
 .message{
@@ -124,7 +129,6 @@ body::before{
     display:none;
 }
 
-/* Footer */
 .footer{
     text-align:center;
     padding:12px 0;
@@ -137,28 +141,41 @@ body::before{
 
 <body>
 
+<!-- ===== 18+ Overlay ===== -->
+<div class="age-overlay" id="ageOverlay">
+    <div class="age-box">
+        <h2>🔞 XÁC NHẬN ĐỘ TUỔI</h2>
+        <p>Nội dung này chỉ dành cho người đủ 18 tuổi trở lên.</p>
+        <div class="age-buttons">
+            <button class="btn btn-yes" onclick="enterSite()">Tôi đủ 18+</button>
+            <button class="btn btn-no" onclick="leaveSite()">Thoát</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MAIN ===== -->
 <div class="main">
+
+<div class="content">
     <div class="wrapper">
 
-        <div class="vip-badge">VIP ACCESS</div>
-
         <div class="note-box">
-            mọi người ấn dòng dưới, hệ thống sẽ AUTO COPY link rồi vào google hoặc safari để coi nhé. 💋💋
-
+            do chính sách của tik tok, mọi người copy rồi vào google hoặc safari để coi nhé 💋💋
         </div>
 
         <div class="link-box" id="copyText">
-            <span id="icon">📋</span>
-            <span>https://www.facebook.com/profile.php?id=100089883616175</span>
+            📋 https://www.facebook.com/profile.php?id=100089883616175
         </div>
 
-        <div class="message" id="msg">ACCESS GRANTED ✅</div>
+        <div class="message" id="msg">COPY SUCCESSFUL ✅</div>
 
     </div>
 </div>
 
 <div class="footer">
-    © <span id="year"></span> NovaDev Premium. All Rights Reserved.
+    © <span id="year"></span> NovaDev Premium.
+</div>
+
 </div>
 
 <script>
@@ -166,29 +183,22 @@ const text = "https://www.facebook.com/profile.php?id=100089883616175";
 const box = document.getElementById("copyText");
 
 box.addEventListener("click", async () => {
-    try {
-        await navigator.clipboard.writeText(text);
-
-        const msg = document.getElementById("msg");
-        const icon = document.getElementById("icon");
-
-        msg.style.display = "block";
-        icon.textContent = "✅";
-
-        box.classList.add("shake");
-        setTimeout(()=>box.classList.remove("shake"),400);
-
-        setTimeout(()=>{
-            msg.style.display="none";
-            icon.textContent="📋";
-        },2000);
-
-    } catch(err) {
-        alert("Copy không được trên trình duyệt này!");
-    }
+    await navigator.clipboard.writeText(text);
+    const msg = document.getElementById("msg");
+    msg.style.display = "block";
+    setTimeout(()=> msg.style.display="none",2000);
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+/* 18+ Functions */
+function enterSite(){
+    document.getElementById("ageOverlay").style.display="none";
+}
+
+function leaveSite(){
+    window.location.href="https://www.google.com";
+}
 </script>
 
 </body>
