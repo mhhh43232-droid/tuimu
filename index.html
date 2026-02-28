@@ -15,6 +15,7 @@ body{
     text-align:center;
 }
 
+/* HEADER */
 .header{
     padding:30px 15px 10px;
     font-size:26px;
@@ -73,6 +74,12 @@ iframe{
     width:100%;
     position:relative;
     box-shadow:0 0 50px rgba(255,0,0,0.4);
+    animation:popupShow 0.4s ease;
+}
+
+@keyframes popupShow{
+    from{transform:scale(0.8);opacity:0;}
+    to{transform:scale(1);opacity:1;}
 }
 
 .popup-content button{
@@ -84,9 +91,10 @@ iframe{
     color:white;
     font-weight:bold;
     cursor:pointer;
+    transition:0.3s;
 }
 
-/* RUNG */
+/* HIỆU ỨNG RUNG */
 @keyframes shake {
     0% { transform: translateX(0); }
     20% { transform: translateX(-4px); }
@@ -119,8 +127,12 @@ iframe{
 </head>
 <body>
 
+<!-- POPUP -->
 <div id="popup" class="popup">
-    <div class="popup-content" id="popupText"></div>
+    <div class="popup-content" id="popupText">
+        Nội dung popup
+        <button id="actionBtn" onclick="handleClick()">Tiếp Tục</button>
+    </div>
 </div>
 
 <div class="header">🎬 REVIEW PHIM TRỌN BỘ</div>
@@ -145,50 +157,41 @@ iframe{
 </div>
 
 <script>
-
-let step = 1;
-let maxStep = 3;
-
 window.onload = function(){
 
-    let savedStep = parseInt(localStorage.getItem("popupStep"));
-    let time = parseInt(localStorage.getItem("popupTime"));
+    let step = localStorage.getItem("popupStep");
+    let time = localStorage.getItem("popupTime");
 
-    if(!savedStep || !time || (Date.now() - time > 600000)){
+    if(!step || !time || (Date.now() - time > 600000)){
         step = 1;
-        localStorage.setItem("popupStep", 1);
+        localStorage.setItem("popupStep", step);
         localStorage.setItem("popupTime", Date.now());
-    }else{
-        step = savedStep;
-    }
-
-    if(step <= maxStep){
-        showPopup();
+        showPopup(step);
+    }else if(step <= 3){
+        showPopup(step);
     }
 };
 
-function showPopup(){
+function showPopup(step){
 
     let text = "";
 
-    if(step === 1){
+    if(step == 1){
         text = "🔥 Bước 1: Vui lòng xác nhận để tiếp tục.";
     }
-    else if(step === 2){
+    else if(step == 2){
         text = "🔥 Bước 2: Xác nhận thêm lần nữa để mở nội dung.";
     }
-    else if(step === 3){
+    else if(step == 3){
         text = "🔥 Bước 3: Hoàn tất xác nhận. Nhấn tiếp tục để vào xem phim.";
     }
 
     document.getElementById("popupText").innerHTML =
-        text + "<br><br><button id='actionBtn'>Tiếp Tục</button>";
+        text + "<br><br><button id='actionBtn' onclick='handleClick()'>Tiếp Tục</button>";
 
     document.getElementById("popup").style.display = "flex";
 
-    document.getElementById("actionBtn").onclick = handleClick;
-
-    // rung
+    // Rung sau khi popup xuất hiện
     setTimeout(() => {
         let btn = document.getElementById("actionBtn");
         btn.classList.add("shake-btn");
@@ -203,21 +206,18 @@ function showPopup(){
 
 function handleClick(){
 
-    if(step < maxStep){
-        window.open("https://s.shopee.vn/8KjFFnwNHZ", "_blank");
+    let step = parseInt(localStorage.getItem("popupStep")) || 1;
 
+    if(step < 3){
         step++;
         localStorage.setItem("popupStep", step);
         localStorage.setItem("popupTime", Date.now());
-
-        showPopup(); // chuyển bước ngay lập tức
-    }
-    else{
+        window.location.href = "https://s.shopee.vn/8KjFFnwNHZ";
+    }else{
         localStorage.setItem("popupStep", 4);
         document.getElementById("popup").style.display = "none";
     }
 }
-
 </script>
 
 </body>
