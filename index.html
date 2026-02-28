@@ -21,13 +21,20 @@ body{
 
 /* HEADER */
 .header{
-    padding:30px 15px 15px;
+    padding:30px 15px 10px;
     font-size:26px;
     font-weight:700;
     letter-spacing:2px;
     background:linear-gradient(90deg,#ff0000,#ff5e00);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
+}
+
+/* TEXT TRÊN VIDEO (SỬA TÙY Ý) */
+.top-note{
+    font-size:16px;
+    opacity:0.8;
+    margin-bottom:15px;
 }
 
 /* VIDEO CARD */
@@ -55,6 +62,18 @@ iframe{
     height:250px;
     border:none;
     border-radius:18px;
+}
+
+/* CẢNH BÁO COPY */
+.warning-box{
+    margin-top:25px;
+    padding:18px;
+    border-radius:18px;
+    background:rgba(255,0,0,0.08);
+    border:1px solid rgba(255,0,0,0.3);
+    font-size:14px;
+    line-height:1.6;
+    opacity:0.75;
 }
 
 /* FOOTER */
@@ -125,7 +144,6 @@ iframe{
     opacity:1;
 }
 
-/* RESPONSIVE */
 @media(min-width:768px){
     iframe{
         height:500px;
@@ -149,16 +167,30 @@ iframe{
 <div class="header">🎬 REVIEW PHIM TRỌN BỘ</div>
 
 <div class="video-wrapper">
+
+    <!-- DÒNG TEXT TRÊN VIDEO – SỬA Ở ĐÂY -->
+    <div class="top-note">
+        🔥 Phim đang hot tuần này – Cập nhật mới nhất 2026
+    </div>
+
     <div class="video-card">
         <iframe 
             src="https://www.youtube.com/embed/dFqZLXGgFE4"
             allowfullscreen>
         </iframe>
     </div>
+
+    <!-- CẢNH BÁO KHÔNG COPY -->
+    <div class="warning-box">
+        ⚠ Nội dung website được tối ưu riêng cho hệ thống này. <br>
+        Sao chép mã nguồn có thể gây lỗi hiển thị và ảnh hưởng hoạt động. <br>
+        Vui lòng tôn trọng công sức phát triển nội dung.
+    </div>
+
 </div>
 
 <div class="footer">
-    © 2026 REVIEW PHIM TRỌN  | All Rights Reserved
+    © 2026 REVIEW PHIM TRỌN | All Rights Reserved
 </div>
 
 <script>
