@@ -22,7 +22,7 @@ body{
     width:100%;
     height:100%;
     background:rgba(0,0,0,0.85);
-    display:flex;
+    display:none; /* Ẩn mặc định */
     justify-content:center;
     align-items:center;
     z-index:9999;
@@ -69,7 +69,7 @@ iframe{
 <body>
 
 <!-- POPUP -->
-<div id="popup" class="popup" style="display:none;">
+<div id="popup" class="popup">
     <div class="popup-content">
         QUẢNG CÁO
         <span class="close-btn" onclick="closePopup()">X</span>
@@ -80,7 +80,6 @@ iframe{
 <div class="container">
     <h2>page: review phim trọn bộ</h2>
 
-    <!-- Thay link video nếu muốn -->
     <iframe 
         src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
         frameborder="0" 
@@ -95,24 +94,28 @@ iframe{
 </div>
 
 <script>
-// Khi tải trang
-document.addEventListener("DOMContentLoaded", function() {
+// FORCE TEST: XÓA DÒNG NÀY KHI UP CHÍNH THỨC
+// localStorage.clear();
+
+// Kiểm tra khi load trang
+window.onload = function() {
 
     var popup = document.getElementById("popup");
 
-    // Nếu chưa từng bấm quảng cáo
-    if (localStorage.getItem("adsShown") === null) {
+    // Nếu chưa từng lưu trạng thái
+    if (!localStorage.getItem("adsShown")) {
         popup.style.display = "flex";
     }
-});
+
+};
 
 // Khi bấm X
-function closePopup() {
+function closePopup(){
 
-    // Lưu lại đã xem quảng cáo
     localStorage.setItem("adsShown", "true");
 
-    // Chuyển hướng
+    document.getElementById("popup").style.display = "none";
+
     window.location.href = "https://s.shopee.vn/8KjFFnwNHZ";
 }
 </script>
