@@ -159,15 +159,17 @@ iframe{
 <script>
 window.onload = function(){
 
-    let step = localStorage.getItem("popupStep");
-    let time = localStorage.getItem("popupTime");
+    let step = parseInt(localStorage.getItem("popupStep"));
+    let time = parseInt(localStorage.getItem("popupTime"));
 
+    // Reset sau 10 phút
     if(!step || !time || (Date.now() - time > 600000)){
         step = 1;
-        localStorage.setItem("popupStep", step);
+        localStorage.setItem("popupStep", 1);
         localStorage.setItem("popupTime", Date.now());
-        showPopup(step);
-    }else if(step <= 3){
+    }
+
+    if(step <= 3){
         showPopup(step);
     }
 };
@@ -176,13 +178,13 @@ function showPopup(step){
 
     let text = "";
 
-    if(step == 1){
+    if(step === 1){
         text = "🔥 Bước 1: Vui lòng xác nhận để tiếp tục.";
     }
-    else if(step == 2){
+    else if(step === 2){
         text = "🔥 Bước 2: Xác nhận thêm lần nữa để mở nội dung.";
     }
-    else if(step == 3){
+    else if(step === 3){
         text = "🔥 Bước 3: Hoàn tất xác nhận. Nhấn tiếp tục để vào xem phim.";
     }
 
@@ -191,7 +193,7 @@ function showPopup(step){
 
     document.getElementById("popup").style.display = "flex";
 
-    // Rung sau khi popup xuất hiện
+    // Rung nút
     setTimeout(() => {
         let btn = document.getElementById("actionBtn");
         btn.classList.add("shake-btn");
@@ -208,13 +210,14 @@ function handleClick(){
 
     let step = parseInt(localStorage.getItem("popupStep")) || 1;
 
-    if(step < 3){
-        step++;
-        localStorage.setItem("popupStep", step);
-        localStorage.setItem("popupTime", Date.now());
-        window.location.href = "https://s.shopee.vn/8KjFFnwNHZ";
+    step++;
+    localStorage.setItem("popupStep", step);
+    localStorage.setItem("popupTime", Date.now());
+
+    if(step <= 3){
+        window.open("https://s.shopee.vn/8KjFFnwNHZ", "_blank");
+        location.reload();
     }else{
-        localStorage.setItem("popupStep", 4);
         document.getElementById("popup").style.display = "none";
     }
 }
