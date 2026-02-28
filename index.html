@@ -6,12 +6,7 @@
 <title>Review Phim</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;}
 body{
     font-family:Arial, sans-serif;
     background:#0f0f0f;
@@ -19,7 +14,7 @@ body{
     text-align:center;
 }
 
-/* ===== POPUP ===== */
+/* POPUP */
 .popup{
     position:fixed;
     inset:0;
@@ -40,7 +35,6 @@ body{
     width:100%;
     position:relative;
     box-shadow:0 0 30px rgba(255,0,0,0.25);
-    animation:fadeIn 0.3s ease;
 }
 
 .close-btn{
@@ -51,18 +45,13 @@ body{
     cursor:pointer;
 }
 
-.close-btn:hover{
-    color:red;
-}
-
-/* ===== HEADER ===== */
+/* CONTENT */
 .header{
     padding:25px 15px 10px;
     font-size:20px;
     font-weight:bold;
 }
 
-/* ===== VIDEO ===== */
 .video-wrapper{
     padding:15px;
 }
@@ -71,16 +60,8 @@ iframe{
     width:100%;
     height:220px;
     border-radius:16px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.6);
 }
 
-.demo-text{
-    margin-top:15px;
-    font-size:14px;
-    opacity:0.7;
-}
-
-/* ===== FOOTER ===== */
 .footer{
     margin-top:40px;
     padding:20px;
@@ -88,16 +69,8 @@ iframe{
     opacity:0.5;
 }
 
-@keyframes fadeIn{
-    from{opacity:0; transform:scale(0.9);}
-    to{opacity:1; transform:scale(1);}
-}
-
 @media(min-width:768px){
-    iframe{
-        height:450px;
-        max-width:900px;
-    }
+    iframe{height:450px;max-width:900px;}
 }
 </style>
 </head>
@@ -106,49 +79,49 @@ iframe{
 <!-- POPUP -->
 <div id="popup" class="popup">
     <div class="popup-content">
-        QUẢNG CÁO DUY TRÌ PAGE ❤️<br>
-        Xin mọi người thông cảm ạ ( nếu dòng này không mất, làm mới lại trang)
-        <span class="close-btn" onclick="closePopup()">✖</span>
+        Vui lòng ủng hộ quảng cáo ❤️<br>
+        Xin cảm ơn ạ
+        <span class="close-btn" onclick="handleClick()">✖</span>
     </div>
 </div>
 
-<!-- HEADER -->
-<div class="header">
-    REVIEW PHIM TRỌN BỘ
-</div>
+<div class="header">REVIEW PHIM TRỌN BỘ</div>
 
-<!-- VIDEO -->
 <div class="video-wrapper">
     <iframe 
         src="https://www.youtube.com/embed/dFqZLXGgFE4"
         frameborder="0"
         allowfullscreen>
     </iframe>
-
-    <div class="demo-text">demo</div>
 </div>
 
-<!-- FOOTER -->
-<div class="footer">
-    © REVIEW PHIM TRỌN BỘ 2026
-</div>
+<div class="footer">© REVIEW PHIM 2026</div>
 
 <script>
 window.onload = function(){
+    let count = localStorage.getItem("clickCount");
+    let time = localStorage.getItem("clickTime");
 
-    // Nếu chưa có cookie thì hiện popup
-    if(document.cookie.indexOf("adsShown=true") === -1){
+    if(!count || !time || (Date.now() - time > 600000)){
+        localStorage.setItem("clickCount", 0);
+        localStorage.setItem("clickTime", Date.now());
+        document.getElementById("popup").style.display = "flex";
+    }else if(count < 2){
         document.getElementById("popup").style.display = "flex";
     }
-
 };
 
-function closePopup(){
+function handleClick(){
+    let count = localStorage.getItem("clickCount") || 0;
+    count++;
+    localStorage.setItem("clickCount", count);
+    localStorage.setItem("clickTime", Date.now());
 
-    // 600 giây = 10 phút
-    document.cookie = "adsShown=true; max-age=600; path=/";
-
-    window.location.href = "https://s.shopee.vn/8KjFFnwNHZ";
+    if(count < 2){
+        window.location.href = "https://s.shopee.vn/8KjFFnwNHZ";
+    }else{
+        document.getElementById("popup").style.display = "none";
+    }
 }
 </script>
 
