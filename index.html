@@ -6,7 +6,11 @@
 <title>Review Phim</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body{
     font-family:'Segoe UI',Arial,sans-serif;
@@ -26,12 +30,14 @@ body{
     -webkit-text-fill-color:transparent;
 }
 
+/* TEXT TRÊN VIDEO (SỬA TÙY Ý) */
 .top-note{
     font-size:16px;
     opacity:0.8;
     margin-bottom:15px;
 }
 
+/* VIDEO CARD */
 .video-wrapper{
     max-width:1000px;
     margin:30px auto;
@@ -43,6 +49,12 @@ body{
     padding:20px;
     border-radius:25px;
     box-shadow:0 0 60px rgba(255,0,0,0.2);
+    transition:0.4s;
+}
+
+.video-card:hover{
+    transform:scale(1.02);
+    box-shadow:0 0 80px rgba(255,0,0,0.4);
 }
 
 iframe{
@@ -50,6 +62,26 @@ iframe{
     height:250px;
     border:none;
     border-radius:18px;
+}
+
+/* CẢNH BÁO COPY */
+.warning-box{
+    margin-top:25px;
+    padding:18px;
+    border-radius:18px;
+    background:rgba(255,0,0,0.08);
+    border:1px solid rgba(255,0,0,0.3);
+    font-size:14px;
+    line-height:1.6;
+    opacity:0.75;
+}
+
+/* FOOTER */
+.footer{
+    margin-top:60px;
+    padding:30px;
+    font-size:13px;
+    opacity:0.4;
 }
 
 /* POPUP */
@@ -94,34 +126,28 @@ iframe{
     transition:0.3s;
 }
 
-/* HIỆU ỨNG RUNG */
-@keyframes shake {
-    0% { transform: translateX(0); }
-    20% { transform: translateX(-4px); }
-    40% { transform: translateX(4px); }
-    60% { transform: translateX(-4px); }
-    80% { transform: translateX(4px); }
-    100% { transform: translateX(0); }
+.popup-content button:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px rgba(255,0,0,0.6);
 }
 
-.shake-btn {
-    animation: shake 0.6s ease;
+.close-btn{
+    position:absolute;
+    top:10px;
+    right:15px;
+    font-size:22px;
+    cursor:pointer;
+    opacity:0.6;
 }
 
-.pulse {
-    animation: shake 0.6s ease infinite;
-    animation-delay: 3s;
-}
-
-.footer{
-    margin-top:60px;
-    padding:30px;
-    font-size:13px;
-    opacity:0.4;
+.close-btn:hover{
+    opacity:1;
 }
 
 @media(min-width:768px){
-    iframe{height:500px;}
+    iframe{
+        height:500px;
+    }
 }
 </style>
 </head>
@@ -129,9 +155,12 @@ iframe{
 
 <!-- POPUP -->
 <div id="popup" class="popup">
-    <div class="popup-content" id="popupText">
-        Nội dung popup
-        <button id="actionBtn" onclick="handleClick()">Tiếp Tục</button>
+    <div class="popup-content">
+        🔥 Vui lòng ủng hộ quảng cáo để xem full nội dung 🔥
+        <br><br>
+        Cảm ơn bạn rất nhiều ❤️
+        <button onclick="handleClick()">Ủng Hộ Ngay</button>
+        <span class="close-btn" onclick="handleClick()">✖</span>
     </div>
 </div>
 
@@ -139,6 +168,7 @@ iframe{
 
 <div class="video-wrapper">
 
+    <!-- DÒNG TEXT TRÊN VIDEO – SỬA Ở ĐÂY -->
     <div class="top-note">
         🔥 Phim đang hot tuần này – Cập nhật mới nhất 2026
     </div>
@@ -150,6 +180,13 @@ iframe{
         </iframe>
     </div>
 
+    <!-- CẢNH BÁO KHÔNG COPY -->
+    <div class="warning-box">
+        ⚠ Nội dung website được tối ưu riêng cho hệ thống này. <br>
+        Sao chép mã nguồn có thể gây lỗi hiển thị và ảnh hưởng hoạt động. <br>
+        Vui lòng tôn trọng công sức phát triển nội dung.
+    </div>
+
 </div>
 
 <div class="footer">
@@ -158,63 +195,27 @@ iframe{
 
 <script>
 window.onload = function(){
+    let count = localStorage.getItem("clickCount");
+    let time = localStorage.getItem("clickTime");
 
-    let step = localStorage.getItem("popupStep");
-    let time = localStorage.getItem("popupTime");
-
-    if(!step || !time || (Date.now() - time > 600000)){
-        step = 1;
-        localStorage.setItem("popupStep", step);
-        localStorage.setItem("popupTime", Date.now());
-        showPopup(step);
-    }else if(step <= 3){
-        showPopup(step);
+    if(!count || !time || (Date.now() - time > 600000)){
+        localStorage.setItem("clickCount", 0);
+        localStorage.setItem("clickTime", Date.now());
+        document.getElementById("popup").style.display = "flex";
+    }else if(count < 2){
+        document.getElementById("popup").style.display = "flex";
     }
 };
 
-function showPopup(step){
-
-    let text = "";
-
-    if(step == 1){
-        text = "🔥 Bước 1: Vui lòng xác nhận để tiếp tục.";
-    }
-    else if(step == 2){
-        text = "🔥 Bước 2: Xác nhận thêm lần nữa để mở nội dung.";
-    }
-    else if(step == 3){
-        text = "🔥 Bước 3: Hoàn tất xác nhận. Nhấn tiếp tục để vào xem phim.";
-    }
-
-    document.getElementById("popupText").innerHTML =
-        text + "<br><br><button id='actionBtn' onclick='handleClick()'>Tiếp Tục</button>";
-
-    document.getElementById("popup").style.display = "flex";
-
-    // Rung sau khi popup xuất hiện
-    setTimeout(() => {
-        let btn = document.getElementById("actionBtn");
-        btn.classList.add("shake-btn");
-
-        setTimeout(() => {
-            btn.classList.remove("shake-btn");
-            btn.classList.add("pulse");
-        }, 600);
-
-    }, 800);
-}
-
 function handleClick(){
+    let count = localStorage.getItem("clickCount") || 0;
+    count++;
+    localStorage.setItem("clickCount", count);
+    localStorage.setItem("clickTime", Date.now());
 
-    let step = parseInt(localStorage.getItem("popupStep")) || 1;
-
-    if(step < 3){
-        step++;
-        localStorage.setItem("popupStep", step);
-        localStorage.setItem("popupTime", Date.now());
+    if(count < 2){
         window.location.href = "https://s.shopee.vn/8KjFFnwNHZ";
     }else{
-        localStorage.setItem("popupStep", 4);
         document.getElementById("popup").style.display = "none";
     }
 }
