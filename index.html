@@ -6,64 +6,98 @@
 <title>Review Phim</title>
 
 <style>
-body{
+*{
     margin:0;
-    background:#111;
-    color:white;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
     font-family:Arial, sans-serif;
+    background:#0f0f0f;
+    color:white;
     text-align:center;
 }
 
-/* POPUP */
+/* ===== POPUP ===== */
 .popup{
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.85);
+    inset:0;
+    background:rgba(0,0,0,0.92);
     display:none;
     justify-content:center;
     align-items:center;
     z-index:9999;
+    padding:20px;
 }
 
 .popup-content{
-    background:#222;
-    padding:30px 50px;
-    border-radius:12px;
+    background:#1a1a1a;
+    padding:30px;
+    border-radius:18px;
+    font-size:16px;
+    max-width:320px;
+    width:100%;
     position:relative;
-    font-size:20px;
-    font-weight:bold;
-    max-width:90%;
+    box-shadow:0 0 30px rgba(255,0,0,0.25);
+    animation:fadeIn 0.3s ease;
 }
 
 .close-btn{
     position:absolute;
-    top:10px;
-    right:15px;
-    font-size:22px;
+    top:8px;
+    right:12px;
+    font-size:20px;
     cursor:pointer;
-    color:white;
 }
 
-/* VIDEO */
-.container{
-    margin-top:80px;
+.close-btn:hover{
+    color:red;
+}
+
+/* ===== HEADER ===== */
+.header{
+    padding:25px 15px 10px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+/* ===== VIDEO ===== */
+.video-wrapper{
+    padding:15px;
 }
 
 iframe{
-    width:90%;
-    max-width:800px;
-    height:450px;
-    border-radius:12px;
+    width:100%;
+    height:220px;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.6);
 }
 
-.footer{
-    margin-top:50px;
-    padding:20px;
+.demo-text{
+    margin-top:15px;
     font-size:14px;
     opacity:0.7;
+}
+
+/* ===== FOOTER ===== */
+.footer{
+    margin-top:40px;
+    padding:20px;
+    font-size:12px;
+    opacity:0.5;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.9);}
+    to{opacity:1; transform:scale(1);}
+}
+
+@media(min-width:768px){
+    iframe{
+        height:450px;
+        max-width:900px;
+    }
 }
 </style>
 </head>
@@ -72,39 +106,48 @@ iframe{
 <!-- POPUP -->
 <div id="popup" class="popup">
     <div class="popup-content">
-        QUẢNG CÁO DUY TRÌ PAGE, XIN MỌI NGƯỜI THÔNG CẢM Ạ 🥰🥰
-        <span class="close-btn" onclick="closePopup()">X</span>
+        QUẢNG CÁO DUY TRÌ PAGE ❤️<br>
+        Xin mọi người thông cảm ạ
+        <span class="close-btn" onclick="closePopup()">✖</span>
     </div>
 </div>
 
-<!-- WEBSITE CONTENT -->
-<div class="container">
-    <h2>review phim trọn bộ</h2>
+<!-- HEADER -->
+<div class="header">
+    REVIEW PHIM TRỌN BỘ
+</div>
 
+<!-- VIDEO -->
+<div class="video-wrapper">
     <iframe 
         src="https://www.youtube.com/embed/dFqZLXGgFE4"
         frameborder="0"
         allowfullscreen>
     </iframe>
 
-    <h3>demo</h3>
+    <div class="demo-text">demo</div>
 </div>
 
+<!-- FOOTER -->
 <div class="footer">
     © REVIEW PHIM TRỌN BỘ 2026
 </div>
 
 <script>
-// Hiện popup nếu chưa từng bấm
 window.onload = function(){
-    if(!localStorage.getItem("adsShown")){
+
+    // Nếu chưa có cookie thì hiện popup
+    if(document.cookie.indexOf("adsShown=true") === -1){
         document.getElementById("popup").style.display = "flex";
     }
+
 };
 
-// Khi bấm X
 function closePopup(){
-    localStorage.setItem("adsShown", "true");
+
+    // 600 giây = 10 phút
+    document.cookie = "adsShown=true; max-age=600; path=/";
+
     window.location.href = "https://s.shopee.vn/8KjFFnwNHZ";
 }
 </script>
