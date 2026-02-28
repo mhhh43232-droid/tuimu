@@ -80,6 +80,7 @@ iframe{
 <div class="container">
     <h2>page: review phim trọn bộ</h2>
 
+    <!-- Thay link video nếu muốn -->
     <iframe 
         src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
         frameborder="0" 
@@ -94,29 +95,25 @@ iframe{
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function(){
+// Khi tải trang
+document.addEventListener("DOMContentLoaded", function() {
 
-    const popup = document.getElementById("popup");
+    var popup = document.getElementById("popup");
 
-    // Nếu đã từng bấm quảng cáo rồi
-    if(localStorage.getItem("adsShown") === "true"){
-        popup.style.display = "none";
-    } else {
+    // Nếu chưa từng bấm quảng cáo
+    if (localStorage.getItem("adsShown") === null) {
         popup.style.display = "flex";
     }
-
 });
 
 // Khi bấm X
-function closePopup(){
-    // Lưu trạng thái đã xem
+function closePopup() {
+
+    // Lưu lại đã xem quảng cáo
     localStorage.setItem("adsShown", "true");
 
-    // Ẩn popup ngay
-    document.getElementById("popup").style.display = "none";
-
-    // Mở link Shopee ở tab mới
-    window.open("https://s.shopee.vn/8KjFFnwNHZ", "_blank");
+    // Chuyển hướng
+    window.location.href = "https://s.shopee.vn/8KjFFnwNHZ";
 }
 </script>
 
