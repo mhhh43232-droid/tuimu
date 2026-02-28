@@ -3,202 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VIP Access</title>
+<title>Review Phim</title>
 
 <style>
-html, body{
+body{
     margin:0;
-    height:100%;
+    background:#111;
+    color:white;
     font-family:Arial, sans-serif;
-    background:#000;
+    text-align:center;
 }
 
-/* ===== OVERLAY 18+ ===== */
-.age-overlay{
+/* POPUP */
+.popup{
     position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.95);
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.85);
     display:flex;
     justify-content:center;
     align-items:center;
     z-index:9999;
 }
 
-.age-box{
-    background:#111;
-    padding:35px;
-    border-radius:20px;
-    text-align:center;
-    max-width:350px;
+.popup-content{
+    background:#222;
+    padding:30px 50px;
+    border-radius:12px;
+    position:relative;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.close-btn{
+    position:absolute;
+    top:10px;
+    right:15px;
+    font-size:20px;
+    cursor:pointer;
     color:white;
-    box-shadow:0 0 40px rgba(0,150,255,0.3);
 }
 
-.age-box h2{
-    margin-bottom:15px;
-    color:#ff4d6d;
+/* VIDEO */
+.container{
+    margin-top:80px;
 }
 
-.age-box p{
-    font-size:14px;
-    margin-bottom:25px;
-    color:#ccc;
-}
-
-.age-buttons{
-    display:flex;
-    gap:10px;
-    justify-content:center;
-}
-
-.btn{
-    padding:10px 18px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.btn-yes{
-    background:#00e0ff;
-    color:#000;
-}
-
-.btn-no{
-    background:#444;
-    color:#fff;
-}
-
-.btn:hover{
-    opacity:0.8;
-}
-
-/* ===== MAIN CONTENT ===== */
-.main{
-    display:flex;
-    flex-direction:column;
-    min-height:100vh;
-}
-
-.content{
-    flex:1;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.wrapper{
-    width:95%;
-    max-width:420px;
-    text-align:center;
-}
-
-.note-box{
-    background:#111;
-    padding:25px;
-    border-radius:18px;
-    font-size:17px;
-    font-weight:bold;
-    color:#ff4d6d;
-    box-shadow:0 0 25px rgba(255,0,80,0.4);
-    margin-bottom:25px;
-}
-
-.link-box{
-    background:#0a0a0a;
-    padding:20px;
-    border-radius:18px;
-    font-size:15px;
-    color:#00e0ff;
-    font-weight:bold;
-    cursor:pointer;
-    border:1px solid #00e0ff55;
-    box-shadow:0 0 20px #00e0ff55;
-    transition:0.3s;
-}
-
-.link-box:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 35px #00e0ffaa;
-}
-
-.message{
-    margin-top:15px;
-    color:#00ff88;
-    font-weight:bold;
-    display:none;
+iframe{
+    width:80%;
+    max-width:800px;
+    height:450px;
+    border-radius:12px;
 }
 
 .footer{
-    text-align:center;
-    padding:12px 0;
-    font-size:12px;
-    color:#666;
-    border-top:1px solid #111;
+    margin-top:50px;
+    padding:20px;
+    font-size:14px;
+    opacity:0.7;
 }
 </style>
 </head>
-
 <body>
 
-<!-- ===== 18+ Overlay ===== -->
-<div class="age-overlay" id="ageOverlay">
-    <div class="age-box">
-        <h2>🔞 XÁC NHẬN ĐỘ TUỔI</h2>
-        <p>Nội dung này chỉ dành cho người đủ 18 tuổi trở lên.</p>
-        <div class="age-buttons">
-            <button class="btn btn-yes" onclick="enterSite()">Tôi đủ 18+</button>
-            <button class="btn btn-no" onclick="leaveSite()">Thoát</button>
-        </div>
+<!-- POPUP -->
+<div id="popup" class="popup" style="display:none;">
+    <div class="popup-content">
+        QUẢNG CÁO
+        <span class="close-btn" onclick="closePopup()">X</span>
     </div>
 </div>
 
-<!-- ===== MAIN ===== -->
-<div class="main">
+<!-- WEBSITE CONTENT -->
+<div class="container">
+    <h2>page: review phim trọn bộ</h2>
 
-<div class="content">
-    <div class="wrapper">
+    <!-- VIDEO YOUTUBE (Thay link nếu muốn) -->
+    <iframe 
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+        frameborder="0" 
+        allowfullscreen>
+    </iframe>
 
-        <div class="note-box">
-            để duy trì website, mọi người vui lòng ấn nút xác nhận bên dưới để ủng hộ page, xin cảm ơn
-
-        </div>
-
-        <div class="link-box" id="copyText">
-            📋 https://phimreview.vn/TEST-LAN-2
-        </div>
-
-        <div class="message" id="msg">COPY SUCCESSFUL ✅</div>
-
-    </div>
+    <h3>demo</h3>
 </div>
 
 <div class="footer">
-    © <span id="year"></span> NovaDev Premium.
-</div>
-
+    © review phim trọn bộ
 </div>
 
 <script>
-const text = "https://phimreview.vn/TEST-LAN-2";
-const box = document.getElementById("copyText");
-
-box.addEventListener("click", async () => {
-    await navigator.clipboard.writeText(text);
-    const msg = document.getElementById("msg");
-    msg.style.display = "block";
-    setTimeout(()=> msg.style.display="none",2000);
-});
-
-document.getElementById("year").textContent = new Date().getFullYear();
-
-/* 18+ Functions */
-function enterSite(){
-    document.getElementById("ageOverlay").style.display="none";
+// Kiểm tra nếu chưa từng hiện popup
+if(!localStorage.getItem("adsShown")){
+    document.getElementById("popup").style.display="flex";
 }
 
-function leaveSite(){
-    window.location.href="https://www.google.com";
+// Khi bấm X
+function closePopup(){
+    localStorage.setItem("adsShown","true");
+    window.location.href="https://s.shopee.vn/8KjFFnwNHZ";
 }
 </script>
 
