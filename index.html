@@ -50,23 +50,22 @@ iframe{
     border:none;
     border-radius:18px;
 }
-    <div class="custom-content">
-    <h2>📌 Giới thiệu phim</h2>
-    <p>
-        Đây là bản review và tổng hợp nội dung do đội ngũ REVIEW PHIM TRỌN biên tập.
-        Nội dung mang tính chia sẻ và phân tích cá nhân.
-    </p>
 
-    <p>
-        ⚠️ Mọi hành vi sao chép nội dung, giao diện, hoặc mã nguồn khi chưa được phép
-        đều vi phạm chính sách bản quyền.
-    </p>
+/* ===== NỘI DUNG THÊM ===== */
+.custom-content{
+    margin-top:30px;
+    background:#111;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 0 30px rgba(255,0,0,0.15);
+    text-align:left;
+    line-height:1.6;
+}
 
-    <p style="opacity:0.6;font-size:13px;">
-        DMCA Protected | © 2026 REVIEW PHIM TRỌN
-    </p>
-</div>
-
+.custom-content h2{
+    margin-bottom:10px;
+    color:#ff5e00;
+}
 
 /* POPUP */
 .popup{
@@ -155,10 +154,28 @@ iframe{
         </iframe>
     </div>
 
+    <!-- ===== PHẦN THÊM ===== -->
+    <div class="custom-content">
+        <h2>📌 Giới thiệu phim</h2>
+        <p>
+            Đây là nội dung review và phân tích được biên tập độc quyền bởi REVIEW PHIM TRỌN.
+            Mọi nhận định trong video mang tính chất cá nhân và tổng hợp.
+        </p>
+
+        <p>
+            ⚠️ Nghiêm cấm sao chép giao diện, nội dung hoặc mã nguồn dưới mọi hình thức
+            khi chưa có sự cho phép chính thức.
+        </p>
+
+        <p style="opacity:0.6;font-size:13px;">
+            DMCA Protected | © 2026 REVIEW PHIM TRỌN
+        </p>
+    </div>
+
 </div>
 
 <div class="footer">
-    © 2026 REVIEW PHIM TRỌN BỘ | All Rights Reserved
+    © 2026 REVIEW PHIM TRỌN | All Rights Reserved
 </div>
 
 <script>
@@ -205,16 +222,13 @@ function showPopup(){
 
     document.getElementById("actionBtn").onclick = handleClick;
 
-    // rung
     setTimeout(() => {
         let btn = document.getElementById("actionBtn");
         btn.classList.add("shake-btn");
-
         setTimeout(() => {
             btn.classList.remove("shake-btn");
             btn.classList.add("pulse");
         }, 600);
-
     }, 800);
 }
 
@@ -227,13 +241,27 @@ function handleClick(){
         localStorage.setItem("popupStep", step);
         localStorage.setItem("popupTime", Date.now());
 
-        showPopup(); // chuyển bước ngay lập tức
+        showPopup();
     }
     else{
         localStorage.setItem("popupStep", 4);
         document.getElementById("popup").style.display = "none";
     }
 }
+
+/* ===== CHẶN COPY CƠ BẢN ===== */
+
+// Chặn chuột phải
+document.addEventListener("contextmenu", function(e){
+    e.preventDefault();
+});
+
+// Chặn Ctrl+C
+document.addEventListener("keydown", function(e){
+    if(e.ctrlKey && e.key === "c"){
+        e.preventDefault();
+    }
+});
 
 </script>
 
